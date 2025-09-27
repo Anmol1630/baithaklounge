@@ -1,0 +1,1624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Baithak Lounge | Luxury Redefined in East York</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-gold: #D4AF37;
+      --secondary-gold: #f4e4a6;
+      --soft-white: #f5f5f5;
+      --pure-white: #ffffff;
+      --light-gray: #e0e0e0;
+      --text-dark: #1a1a1a;
+      --text-muted: #666666;
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --shadow-gold: rgba(212, 175, 55, 0.3);
+      --dark-overlay: rgba(0, 0, 0, 0.4);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--soft-white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+
+    /* Navigation Styles */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(25px);
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--shadow-gold);
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .navbar.scrolled {
+      backdrop-filter: blur(35px);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+      border-bottom: 1px solid var(--primary-gold);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .logo img {
+      width: 90px;
+      height: auto;
+      object-fit: contain;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.2));
+    }
+
+    .logo:hover img {
+      transform: scale(1.08);
+      filter: drop-shadow(0 4px 20px var(--shadow-gold));
+    }
+
+    .logo-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      margin-left: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      letter-spacing: 1px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover .logo-text {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-gold);
+      transform: translateY(-2px);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1001;
+      padding: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .mobile-toggle:hover {
+      color: var(--primary-gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(var(--dark-overlay), rgba(212, 175, 55, 0.2)), url('home1.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%);
+      z-index: 1;
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .floating-element {
+      position: absolute;
+      color: var(--primary-gold);
+      opacity: 0.3;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    .floating-element:nth-child(1) { 
+      top: 15%; left: 10%; 
+      animation-delay: 0s; 
+      font-size: 3rem;
+    }
+    .floating-element:nth-child(2) { 
+      top: 70%; right: 15%; 
+      animation-delay: 3s; 
+      font-size: 2rem;
+    }
+    .floating-element:nth-child(3) { 
+      bottom: 20%; left: 80%; 
+      animation-delay: 6s; 
+      font-size: 2.5rem;
+    }
+    .floating-element:nth-child(4) { 
+      top: 40%; right: 70%; 
+      animation-delay: 9s; 
+      font-size: 1.8rem;
+    }
+    .floating-element:nth-child(5) { 
+      top: 25%; left: 60%; 
+      animation-delay: 1.5s; 
+      font-size: 2.2rem;
+    }
+
+    @keyframes float {
+      0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+        opacity: 0.3; 
+      }
+      50% { 
+        transform: translateY(-25px) rotate(10deg); 
+        opacity: 0.6; 
+      }
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 1000px;
+      padding: 0 2rem;
+      animation: fadeInUp 1.5s ease-out;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4rem, 10vw, 7rem);
+      font-weight: 400;
+      margin-bottom: 2rem;
+      line-height: 1.1;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold), #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero-subtitle {
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 3rem;
+      letter-spacing: 1px;
+      animation: fadeInUp 1s ease-out 0.3s both;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+
+    .btn-primary, .btn-secondary {
+      padding: 1.3rem 3rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      color: var(--text-dark);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 2px solid var(--primary-gold);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-primary::before, .btn-secondary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn-primary:hover::before, .btn-secondary:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-gold);
+      color: var(--text-dark);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 8rem 0;
+      background: var(--pure-white);
+      position: relative;
+    }
+
+    .features::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 400;
+      color: var(--primary-gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 2rem auto 0;
+      font-weight: 300;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+      margin-top: 5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      border-radius: 25px;
+      padding: 4rem 3rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.6s ease;
+    }
+
+    .feature-card:hover::before {
+      transform: scale(1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-15px) scale(1.03);
+      border-color: var(--primary-gold);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 3.5rem;
+      color: var(--primary-gold);
+      margin-bottom: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+
+    .feature-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card p {
+      color: var(--text-muted);
+      line-height: 1.8;
+      font-size: 1.1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Image Collage Section */
+    .image-collage {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, var(--soft-white) 0%, rgba(212, 175, 55, 0.08) 100%);
+      position: relative;
+    }
+
+    .collage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .collage-grid img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .collage-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 40px var(--shadow-gold);
+    }
+
+    /* Social Section */
+    .social-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, var(--soft-white) 0%, rgba(212, 175, 55, 0.08) 100%);
+      position: relative;
+    }
+
+    .social-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.08'%3E%3Cpath d='M50 50c0-27.614-22.386-50-50-50v50h50z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 4rem;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 70px;
+      height: 70px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      border-radius: 50%;
+      color: var(--text-dark);
+      font-size: 1.8rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-link:hover {
+      background: var(--primary-gold);
+      color: var(--text-dark);
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 20px 40px var(--shadow-gold);
+      border-color: var(--primary-gold);
+    }
+
+    .social-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .social-link:hover::before {
+      left: 100%;
+    }
+
+    .reserve-link {
+      padding: 1rem 3rem;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      color: var(--text-dark);
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .reserve-link:hover {
+      background: transparent;
+      color: var(--primary-gold);
+      border-color: var(--primary-gold);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 20px 50px var(--shadow-gold);
+    }
+
+    .reserve-link::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .reserve-link:hover::before {
+      left: 100%;
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 6rem 0;
+      background: var(--pure-white);
+    }
+
+    .map-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 500px;
+      border-radius: 25px;
+      overflow: hidden;
+      position: relative;
+      border: 3px solid var(--primary-gold);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 22px;
+    }
+
+    .map-overlay {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 2rem 2.5rem;
+      border-radius: 20px;
+      border: 2px solid var(--primary-gold);
+      color: var(--text-dark);
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+    }
+
+    .map-overlay h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+    }
+
+    .map-overlay p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      color: var(--soft-white);
+      padding: 5rem 0 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 4rem;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-section {
+      text-align: center;
+      padding: 2.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .footer-section:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-gold);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .footer-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      color: var(--primary-gold);
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 2px;
+      background: var(--primary-gold);
+      border-radius: 2px;
+    }
+
+    .footer-section p, .footer-section a {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      line-height: 1.8;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary-gold);
+      transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+      padding-top: 3rem;
+      border-top: 2px solid rgba(212, 175, 55, 0.3);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Chatbot Styles */
+    .chatbot-button {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-dark);
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 10px 20px var(--shadow-gold);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 15px 30px var(--shadow-gold);
+    }
+
+    .chatbot-container {
+      position: fixed;
+      bottom: 6rem;
+      right: 2rem;
+      width: 400px;
+      max-height: 600px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      border: 2px solid var(--primary-gold);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      display: none;
+      flex-direction: column;
+      z-index: 1000;
+      overflow: hidden;
+    }
+
+    .chatbot-container.active {
+      display: flex;
+    }
+
+    .chatbot-header {
+      background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
+      padding: 1rem;
+      text-align: center;
+      color: var(--text-dark);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .chatbot-header .close-chat {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-dark);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-header .close-chat:hover {
+      color: var(--pure-white);
+    }
+
+    .chatbot-body {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      background: var(--glass-bg);
+    }
+
+    .chat-message {
+      margin-bottom: 1rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 15px;
+      max-width: 80%;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .chat-message.bot {
+      background: var(--primary-gold);
+      color: var(--text-dark);
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+
+    .chat-message.user {
+      background: var(--light-gray);
+      color: var(--text-dark);
+      margin-right: auto;
+      border-bottom-left-radius: 5px;
+    }
+
+    .chatbot-topics {
+      padding: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .topic-button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      background: var(--light-gray);
+      color: var(--text-dark);
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      flex: 1 1 auto;
+      text-align: center;
+    }
+
+    .topic-button:hover {
+      background: var(--primary-gold);
+      color: var(--text-dark);
+    }
+
+    .chatbot-input {
+      display: flex;
+      padding: 1rem;
+      border-top: 1px solid var(--light-gray);
+    }
+
+    .chatbot-input input {
+      flex: 1;
+      padding: 0.8rem;
+      border: 1px solid var(--light-gray);
+      border-radius: 25px 0 0 25px;
+      font-size: 0.95rem;
+      outline: none;
+      background: var(--pure-white);
+      color: var(--text-dark);
+    }
+
+    .chatbot-input button {
+      padding: 0.8rem 1.2rem;
+      border: none;
+      background: var(--primary-gold);
+      color: var(--text-dark);
+      border-radius: 0 25px 25px 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .chatbot-input button:hover {
+      background: var(--secondary-gold);
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        height: auto;
+        width: auto;
+        background: none;
+        border: none;
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        text-align: center;
+      }
+
+      .mobile-toggle {
+        display: none;
+      }
+
+      .logo img {
+        width: 60px;
+      }
+
+      .logo-text {
+        font-size: 1.4rem;
+        margin-left: 0.5rem;
+      }
+
+      .nav-container {
+        padding: 0.8rem 1rem;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
+
+      .hero {
+        background-attachment: scroll;
+        height: 90vh;
+      }
+
+      .hero h1 {
+        font-size: clamp(3rem, 9vw, 5rem);
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .btn-primary, .btn-secondary {
+        padding: 1.1rem 2.5rem;
+        font-size: 1rem;
+        width: 280px;
+        justify-content: center;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .feature-card {
+        padding: 3rem 2rem;
+      }
+
+      .collage-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+
+      .collage-grid img {
+        height: 200px;
+      }
+
+      .social-links {
+        gap: 1.5rem;
+      }
+
+      .social-link {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+
+      .reserve-link {
+        padding: 0.9rem 2.5rem;
+        font-size: 1rem;
+      }
+
+      .map-overlay {
+        position: static;
+        margin: 1rem auto;
+        margin-bottom: -1rem;
+        max-width: 90%;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .footer-section {
+        padding: 2rem 1.5rem;
+      }
+
+      .chatbot-container {
+        width: 90%;
+        max-height: 450px;
+        bottom: 5rem;
+        right: 1rem;
+      }
+
+      .chatbot-header {
+        font-size: 1.3rem;
+      }
+
+      .chat-message {
+        font-size: 0.9rem;
+      }
+
+      .topic-button {
+        font-size: 0.85rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .chatbot-input input {
+        font-size: 0.9rem;
+      }
+
+      .chatbot-input button {
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      .hero-content {
+        padding: 0 1rem;
+      }
+
+      .features, .social-section, .map-section, .image-collage {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        margin-bottom: 3rem;
+      }
+
+      .features-grid, .collage-grid {
+        margin-top: 3rem;
+      }
+
+      .nav-links {
+        gap: 0.5rem;
+      }
+
+      .nav-links a {
+        font-size: 0.7rem;
+        padding: 0.3rem;
+      }
+
+      .logo-text {
+        font-size: 1.2rem;
+      }
+
+      .chatbot-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        bottom: 1.5rem;
+        right: 1.5rem;
+      }
+
+      .chatbot-container {
+        width: 95%;
+        max-height: 400px;
+        bottom: 4.5rem;
+        right: 0.5rem;
+      }
+
+      .chatbot-header {
+        font-size: 1.2rem;
+      }
+
+      .chat-message {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .topic-button {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+      }
+
+      .chatbot-input input {
+        font-size: 0.85rem;
+      }
+
+      .chatbot-input button {
+        font-size: 0.85rem;
+        padding: 0.8rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo">
+        <img src="logo.png" alt="Baithak Lounge - Luxury Dining Experience" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="about.html">About</a></li>
+        <li><a href="reservation.html">Reservation</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="floating-elements">
+      <div class="floating-element"><i class="fas fa-utensils"></i></div>
+      <div class="floating-element"><i class="fas fa-wine-glass"></i></div>
+      <div class="floating-element"><i class="fas fa-star"></i></div>
+      <div class="floating-element"><i class="fas fa-heart"></i></div>
+      <div class="floating-element"><i class="fas fa-crown"></i></div>
+    </div>
+    <div class="hero-content">
+      <h1>Baithak Lounge</h1>
+      <div class="cta-buttons">
+        <a href="reservation.html" class="btn-primary">
+          <i class="fas fa-calendar-alt"></i>
+          Reserve Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Experience Excellence</h2>
+        <p>Discover what makes Baithak Lounge the premier destination for luxury dining and unforgettable experiences in East York</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-cocktail"></i>
+          </div>
+          <h3>House Specials</h3>
+          <p>Curated Premium House Special to perfectly complement your dining experience. Our expert mixologists create signature specials that tantalize your senses.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <h3>Exquisite Cuisine</h3>
+          <p>Artfully crafted dishes using the finest ingredients, prepared by our world-class culinary team. Each plate tells a story of flavor, tradition, and culinary innovation.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-smoking"></i>
+          </div>
+          <h3>Premium Sheesha</h3>
+          <p>Enjoy the finest sheesha varieties in our elegant lounge setting. Smooth, satisfying blends that create the perfect atmosphere for relaxation and socializing.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Private Events</h3>
+          <p>Elegant spaces perfect for birthdays, anniversaries, corporate events, and intimate celebrations. Customized packages ensure your event is unforgettable.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-gem"></i>
+          </div>
+          <h3>Luxury Ambiance</h3>
+          <p>Immerse yourself in our sophisticated atmosphere designed for comfort and elegance. Every detail crafted to provide you with the ultimate dining experience.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Exceptional Service</h3>
+          <p>Our dedicated staff brings passion and professionalism to every interaction, ensuring your visit exceeds expectations and creates lasting memories.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Image Collage Section -->
+  <section class="image-collage">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Baithak Lounge Gallery</h2>
+        <p>Explore captivating moments and ambiance from Baithak Lounge</p>
+      </div>
+      <div class="collage-grid fade-in">
+        <img src="imgcoll1.png" alt="Baithak Lounge Image 1">
+        <img src="imgcoll2.png" alt="Baithak Lounge Image 2">
+        <img src="imgcoll3.png" alt="Baithak Lounge Image 3">
+        <img src="imgcoll4.png" alt="Baithak Lounge Image 4">
+        <img src="imgcoll5.png" alt="Baithak Lounge Image 5">
+        <img src="imgcoll6.png" alt="Baithak Lounge Image 6">
+        <img src="imgcoll7.png" alt="Baithak Lounge Image 7">
+        <img src="imgcoll8.png" alt="Baithak Lounge Image 8">
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Section -->
+  <section class="social-section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Connect With Us</h2>
+        <p>Follow our journey and stay updated with the latest events, culinary creations, and exclusive offers</p>
+      </div>
+      <div class="social-links fade-in">
+        <a href="https://www.instagram.com/_baithaklounge?igsh=MWk2NXFueDN4cnljMA%3D%3D&utm_source=qr" class="social-link" title="Follow us on Instagram" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="https://www.tiktok.com/@baithaklounge?_t=ZS-8zrbhPvWTvW&_r=1" class="social-link" title="Watch our TikTok videos" target="_blank">
+          <i class="fab fa-tiktok"></i>
+        </a>
+        <a href="https://snapchat.com/t/Ep9QgE6q" class="social-link" title="Add us on Snapchat" target="_blank">
+          <i class="fab fa-snapchat"></i>
+        </a>
+        <a href="https://wa.me/14379550803" class="social-link" title="Message us on WhatsApp" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="https://www.facebook.com/share/1DRBTAM93a/?mibextid=wwXIfr" class="social-link" title="Like us on Facebook" target="_blank">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <div class="container">
+      <div class="section-title fade-in">
+        <h2>Visit Our Location</h2>
+        <p>Find us in the heart of East York, where luxury and convenience meet</p>
+      </div>
+      <div class="map-container fade-in">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.110673837318!2d-79.31632768450266!3d43.72588297911807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cd97787602a7%3A0xb4892cbeb9dacf4e!2sBaithak%20Lounge!5e0!3m2!1sen!2sca!4v1697051234567!5m2!1sen!2sca"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p>
+            <a href="about.html">About Us</a><br>
+            <a href="reservation.html">Make Reservations</a><br>
+            <a href="contact.html">Contact Us</a>
+          </p>
+        </div>
+        <div class="footer-section">
+          <h3>Follow Our Journey</h3>
+          <p>Stay connected with Baithak Lounge for the latest updates, special events, and exclusive offers.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Baithak Lounge. All rights reserved. | Crafting unforgettable experiences with excellence and passion.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot Widget -->
+  <div class="chatbot-button" id="chatbotButton" title="Chat with us">
+    <i class="fas fa-comment-dots"></i>
+  </div>
+  <div class="chatbot-container" id="chatbotContainer">
+    <div class="chatbot-header">
+      Baithak Lounge Assistant
+      <button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chatbot-body" id="chatbotBody">
+      <div class="chat-message bot">Welcome to Baithak Lounge! Choose a topic below or type your question.</div>
+    </div>
+    <div class="chatbot-topics" id="chatbotTopics">
+      <button class="topic-button" data-topic="about">About Us</button>
+      <button class="topic-button" data-topic="services">Services</button>
+      <button class="topic-button" data-topic="location">Location</button>
+      <button class="topic-button" data-topic="reservation">Reservation</button>
+      <button class="topic-button" data-topic="social">Social Media</button>
+      <button class="topic-button" data-topic="hours">Hours</button>
+      <button class="topic-button" data-topic="events">Events</button>
+      <button class="topic-button" data-topic="sheesha">Sheesha</button>
+      <button class="topic-button" data-topic="contact">Contact</button>
+    </div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="Type your question..." />
+      <button id="sendMessage">Send</button>
+    </div>
+  </div>
+
+  <script>
+    // Navigation JavaScript
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.getElementById('navbar');
+
+    mobileToggle.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      const icon = mobileToggle.querySelector('i');
+      icon.style.transform = 'rotate(90deg)';
+      setTimeout(() => {
+        icon.className = isActive ? 'fas fa-times' : 'fas fa-bars';
+        icon.style.transform = 'rotate(0deg)';
+      }, 150);
+      document.body.style.overflow = isActive ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.className = 'fas fa-bars';
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!navLinks.contains(event.target) && !mobileToggle.contains(event.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.className = 'fas fa-bars';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+      lastScrollTop = scrollTop;
+    });
+
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      observer.observe(el);
+    });
+
+    if (window.innerWidth > 768) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const hero = document.querySelector('.hero');
+        if (hero) {
+          hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      document.body.style.opacity = '1';
+    });
+
+    document.querySelectorAll('.btn-primary, .btn-secondary, .reserve-link').forEach(button => {
+      button.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px) scale(1.05)';
+      });
+      button.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    function createFloatingParticle() {
+      const particle = document.createElement('div');
+      particle.style.position = 'absolute';
+      particle.style.width = '4px';
+      particle.style.height = '4px';
+      particle.style.background = 'var(--primary-gold)';
+      particle.style.borderRadius = '50%';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = '100%';
+      particle.style.opacity = '0.6';
+      particle.style.pointerEvents = 'none';
+      particle.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
+      document.querySelector('.hero').appendChild(particle);
+      setTimeout(() => {
+        particle.remove();
+      }, 20000);
+    }
+
+    setInterval(createFloatingParticle, 3000);
+    for (let i = 0; i < 5; i++) {
+      setTimeout(createFloatingParticle, i * 600);
+    }
+
+    // Chatbot JavaScript
+    const chatbotButton = document.getElementById('chatbotButton');
+    const chatbotContainer = document.getElementById('chatbotContainer');
+    const closeChat = document.getElementById('closeChat');
+    const chatInput = document.getElementById('chatInput');
+    const sendMessage = document.getElementById('sendMessage');
+    const chatbotBody = document.getElementById('chatbotBody');
+    const chatbotTopics = document.getElementById('chatbotTopics');
+
+    chatbotButton.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('active');
+      if (chatbotContainer.classList.contains('active')) {
+        chatInput.focus();
+      }
+    });
+
+    closeChat.addEventListener('click', () => {
+      chatbotContainer.classList.remove('active');
+    });
+
+    // FAQ-based chatbot logic
+    const faq = [
+      {
+        topic: 'about',
+        question: 'What is Baithak Lounge?',
+        response: 'Baithak Lounge is a premier luxury dining and lounge destination in East York. We offer exquisite cuisine, premium sheesha, curated house specials, private event spaces, a sophisticated ambiance, and exceptional service. Visit the "About" page for more details.'
+      },
+      {
+        topic: 'services',
+        question: 'What services do you offer?',
+        response: 'We provide a range of luxurious experiences including exquisite cuisine, premium house specials, sheesha, private event spaces, a refined ambiance, and exceptional service. Explore the "Features" section on our website for more information.'
+      },
+      {
+        topic: 'location',
+        question: 'Where is Baithak Lounge located?',
+        response: 'Baithak Lounge is located in the heart of East York. You can find us on the map in the "Visit Our Location" section. For precise directions, contact us via WhatsApp at +1 (437) 955-0803 or visit the "Contact" page.'
+      },
+      {
+        topic: 'reservation',
+        question: 'How can I make a reservation?',
+        response: 'To make a reservation, visit the "Reservation" page or click "Reserve Now" on the homepage. You can also contact us via WhatsApp at +1 (437) 955-0803 for assistance with bookings.'
+      },
+      {
+        topic: 'social',
+        question: 'How can I follow Baithak Lounge on social media?',
+        response: 'Stay connected with us on social media! Follow us on Instagram (@_baithaklounge), TikTok (@baithaklounge), Snapchat, Facebook, or message us on WhatsApp at +1 (437) 955-0803. Visit the "Connect With Us" section for direct links.'
+      },
+      {
+        topic: 'hours',
+        question: 'What are your operating hours?',
+        response: 'Baithak Lounge is typically open from 12 PM to 2 AM daily, but hours may vary for special events. Please confirm by contacting us via WhatsApp at +1 (437) 955-0803 or through the "Contact" page.'
+      },
+      {
+        topic: 'events',
+        question: 'Do you host private events?',
+        response: 'We offer elegant spaces for private events such as birthdays, anniversaries, and corporate gatherings. Visit the "Reservation" page for customized event packages or contact us via WhatsApp at +1 (437) 955-0803.'
+      },
+      {
+        topic: 'sheesha',
+        question: 'What sheesha options are available?',
+        response: 'Enjoy our premium sheesha varieties in a luxurious lounge setting, perfect for relaxation and socializing. Ask our staff about available flavors during your visit!'
+      },
+      {
+        topic: 'contact',
+        question: 'How can I contact Baithak Lounge?',
+        response: 'You can contact us through the "Contact" page, via WhatsApp at +1 (437) 955-0803, or on social media (Instagram: @_baithaklounge, TikTok: @baithaklounge, Snapchat, Facebook). We’re here to assist you!'
+      }
+    ];
+
+    function addMessage(message, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('chat-message', sender);
+      messageDiv.textContent = message;
+      chatbotBody.appendChild(messageDiv);
+      chatbotBody.scrollTop = chatbotBody.scrollHeight;
+    }
+
+    function getBotResponse(userMessage) {
+      const lowerMessage = userMessage.toLowerCase().trim();
+      
+      // Check for exact topic matches
+      const topicMatch = faq.find(item => lowerMessage.includes(item.topic));
+      if (topicMatch) {
+        return topicMatch.response;
+      }
+      
+      // Check for partial keyword matches
+      for (const faqItem of faq) {
+        const keywords = faqItem.question.toLowerCase().split(' ');
+        if (keywords.some(keyword => lowerMessage.includes(keyword))) {
+          return faqItem.response;
+        }
+      }
+      
+      // Fallback response
+      return 'I’m not sure how to answer that. Try selecting a topic below or ask about our services, reservations, location, hours, or social media. You can also contact us via WhatsApp at +1 (437) 955-0803 for more help!';
+    }
+
+    // Handle topic button clicks
+    document.querySelectorAll('.topic-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const topic = button.getAttribute('data-topic');
+        const faqItem = faq.find(item => item.topic === topic);
+        if (faqItem) {
+          addMessage(faqItem.question, 'user');
+          setTimeout(() => {
+            addMessage(faqItem.response, 'bot');
+          }, 500);
+        }
+      });
+    });
+
+    sendMessage.addEventListener('click', () => {
+      const userMessage = chatInput.value.trim();
+      if (userMessage) {
+        addMessage(userMessage, 'user');
+        const botResponse = getBotResponse(userMessage);
+        setTimeout(() => {
+          addMessage(botResponse, 'bot');
+        }, 500);
+        chatInput.value = '';
+      }
+    });
+
+    chatInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && chatInput.value.trim()) {
+        sendMessage.click();
+      }
+    });
+  </script>
+</body>
+</html>

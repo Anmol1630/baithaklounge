@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Reservation | Baithak Lounge</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary-gold: #D4AF37;
+      --soft-white: #f5f5f5;
+      --pure-white: #ffffff;
+      --light-gray: #e0e0e0;
+      --text-dark: #1a1a1a;
+      --text-muted: #666666;
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --shadow-gold: rgba(212, 175, 55, 0.3);
+      --gradient-primary: linear-gradient(135deg, var(--primary-gold), #f4e4a6);
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --warning-color: #f39c12;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--soft-white) 0%, #fafafa 100%);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid var(--shadow-gold);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.8rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 3.5vw, 1.8rem);
+      font-weight: 700;
+      color: var(--primary-gold);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 15px var(--shadow-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: clamp(1rem, 2vw, 1.5rem);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-gold);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 80%;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: clamp(30vh, 40vh, 50vh);
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(212, 175, 55, 0.2)), url('reservation.png');
+      background-size: cover;
+      background-position: center center;
+      background-attachment: scroll;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      margin-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .floating-element {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--primary-gold);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(2px);
+      padding: 1.5rem;
+      border-radius: 15px;
+      max-width: 800px;
+      margin: 0 1rem;
+    }
+
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, var(--primary-gold), #f4e4a6, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content p {
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      font-weight: 300;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      line-height: 1.8;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-8px); }
+      60% { transform: translateX(-50%) translateY(-4px); }
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .reservation-section {
+      padding: 4rem 0;
+      background: var(--pure-white);
+      position: relative;
+    }
+
+    .reservation-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header .badge {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header .badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.8s ease;
+    }
+
+    .section-header .badge:hover::before {
+      left: 100%;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 2.5rem);
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: clamp(0.9rem, 4vw, 1rem);
+      color: var(--text-muted);
+      max-width: 90%;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .reservation-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Enhanced Reservation Form */
+    .reservation-form-wrapper {
+      position: relative;
+    }
+
+    .reservation-form {
+      background: var(--pure-white);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 15px rgba(212, 175, 55, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .reservation-form:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.12),
+        0 6px 20px rgba(212, 175, 55, 0.15);
+    }
+
+    .reservation-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 20px 20px 0 0;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-header .icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+      color: white;
+      box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
+      50% { box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5); }
+      100% { box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3); }
+    }
+
+    .form-header h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2rem);
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .form-header p {
+      color: var(--text-muted);
+      font-size: clamp(0.85rem, 4vw, 0.95rem);
+      line-height: 1.5;
+    }
+
+    /* Progress Indicator */
+    .form-progress {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+      gap: 0.8rem;
+    }
+
+    .progress-step {
+      width: 30px;
+      height: 3px;
+      background: var(--light-gray);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .progress-step.active {
+      background: var(--primary-gold);
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .form-group.full-width {
+      width: 100%;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    .form-group label::after {
+      content: '*';
+      color: var(--error-color);
+      margin-left: 0.3rem;
+      font-weight: 400;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem 1.2rem 1rem 2.8rem;
+      border: 2px solid var(--light-gray);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--pure-white);
+      transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      z-index: 1;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    .form-group textarea {
+      padding-left: 1.2rem;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-gold);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+      transform: translateY(-1px);
+    }
+
+    .form-group input:focus + .input-icon,
+    .form-group select:focus + .input-icon {
+      color: var(--primary-gold);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .form-validation {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 3;
+    }
+
+    .form-validation.success {
+      color: var(--success-color);
+      opacity: 1;
+    }
+
+    .form-validation.error {
+      color: var(--error-color);
+      opacity: 1;
+    }
+
+    /* Enhanced Party Size Selector */
+    .party-size-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      background: rgba(212, 175, 55, 0.05);
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      touch-action: manipulation;
+    }
+
+    .party-size-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+      transform: scale(0);
+      transition: transform 0.5s ease;
+    }
+
+    .party-size-container:hover::before,
+    .party-size-container:active::before {
+      transform: scale(1);
+    }
+
+    .party-size-container:hover,
+    .party-size-container:active {
+      border-color: var(--primary-gold);
+      background: rgba(212, 175, 55, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .party-size-btn {
+      width: 45px;
+      height: 45px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+      touch-action: manipulation;
+    }
+
+    .party-size-btn:hover,
+    .party-size-btn:active {
+      transform: scale(1.1);
+      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
+    }
+
+    .party-size-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: scale(1);
+    }
+
+    .party-size-display {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-gold);
+      min-width: 3.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
+
+    .party-size-label {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--pure-white);
+      padding: 0.2rem 0.6rem;
+      font-size: 0.75rem;
+      color: var(--primary-gold);
+      font-weight: 600;
+      border-radius: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Form Actions */
+    .form-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 1.2rem;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+      touch-action: manipulation;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .submit-btn:hover,
+    .submit-btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .submit-btn:hover::before,
+    .submit-btn:active::before {
+      left: 100%;
+    }
+
+    .clear-btn {
+      width: 100%;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 1.2rem;
+      border: 2px solid var(--light-gray);
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      touch-action: manipulation;
+    }
+
+    .clear-btn:hover,
+    .clear-btn:active {
+      border-color: var(--primary-gold);
+      color: var(--primary-gold);
+      background: rgba(212, 175, 55, 0.05);
+    }
+
+    /* Enhanced Info Cards */
+    .reservation-info-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: var(--pure-white);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-card:hover,
+    .info-card:active {
+      transform: translateY(-5px);
+      border-color: var(--primary-gold);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .info-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .info-card:hover::before,
+    .info-card:active::before {
+      transform: scaleX(1);
+    }
+
+    .info-card-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+      color: white;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .info-card:hover .info-card-icon,
+    .info-card:active .info-card-icon {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    }
+
+    .info-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.5rem, 4vw, 1.6rem);
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+    }
+
+    .info-card p {
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-size: clamp(0.85rem, 3.5vw, 0.9rem);
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      margin-top: 2rem;
+      padding: 2rem 1.5rem;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+    }
+
+    .quick-actions::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(-45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+      50% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+      100% { transform: translateX(200%) translateY(200%) rotate(-45deg); }
+    }
+
+    .quick-actions h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 5vw, 1.8rem);
+      color: white;
+      margin-bottom: 0.8rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .quick-actions p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+      font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+      position: relative;
+      z-index: 2;
+    }
+
+    .quick-btn {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0.4rem;
+      position: relative;
+      z-index: 2;
+      touch-action: manipulation;
+    }
+
+    .quick-btn:hover,
+    .quick-btn:active {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Success Animation */
+    .success-animation {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      animation: successFadeIn 0.8s ease-out;
+    }
+
+    @keyframes successFadeIn {
+      0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .success-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--success-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2.5rem;
+      color: white;
+      animation: successPulse 1.5s infinite;
+    }
+
+    @keyframes successPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.5); }
+      50% { box-shadow: 0 0 0 15px rgba(39, 174, 96, 0); }
+    }
+
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2rem);
+      color: var(--success-color);
+      margin-bottom: 0.8rem;
+    }
+
+    .success-message {
+      color: var(--text-muted);
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      line-height: 1.5;
+    }
+
+    /* Enhanced Footer */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      color: var(--soft-white);
+      padding: 4rem 0 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-section {
+      flex: 1 1 200px;
+    }
+
+    .footer-section h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .footer-section h4::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--primary-gold);
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-section ul li a {
+      color: var(--soft-white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .footer-section ul li a:hover {
+      color: var(--primary-gold);
+      padding-left: 0.5rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icons a {
+      color: var(--soft-white);
+      font-size: 1.4rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: var(--primary-gold);
+      transform: scale(1.2);
+    }
+
+    .footer-bottom {
+      padding: 1.5rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: clamp(0.85rem, 3.5vw, 0.9rem);
+      letter-spacing: 1px;
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-left: 0.4rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .slide-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .slide-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .reservation-grid {
+        flex-direction: column;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: clamp(0.5rem, 1.5vw, 0.8rem);
+      }
+
+      .nav-links a {
+        font-size: clamp(0.75rem, 1.6vw, 0.85rem);
+        padding: 0.3rem 0;
+      }
+
+      .hero {
+        height: 35vh;
+        margin-top: 80px;
+      }
+
+      .hero-content {
+        padding: 1rem;
+      }
+
+      .hero-content h1 {
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+      }
+
+      .hero-content p {
+        font-size: clamp(0.8rem, 2.5vw, 1rem);
+      }
+
+      .reservation-section {
+        padding: 3rem 0;
+      }
+
+      .party-size-container {
+        gap: 1rem;
+        padding: 1.2rem;
+      }
+
+      .party-size-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      .party-size-display {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .reservation-form {
+        padding: 1.5rem 1rem;
+        border-radius: 15px;
+      }
+
+      .section-header .badge {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.75rem;
+      }
+
+      .party-size-container {
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 0.9rem 1rem 0.9rem 2.5rem;
+        font-size: 0.9rem;
+        border-radius: 10px;
+      }
+
+      .input-icon {
+        font-size: 0.9rem;
+        left: 0.8rem;
+      }
+
+      .submit-btn,
+      .clear-btn {
+        padding: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero {
+        height: 30vh;
+      }
+
+      .hero-content h1 {
+        font-size: clamp(1.6rem, 4.5vw, 2rem);
+      }
+
+      .hero-content p {
+        font-size: clamp(0.7rem, 2vw, 0.9rem);
+      }
+
+      .scroll-indicator {
+        font-size: 0.7rem;
+      }
+
+      .nav-links {
+        gap: clamp(0.3rem, 1vw, 0.5rem);
+      }
+
+      .nav-links a {
+        font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">BAITHAK</a>
+      <ul class="nav-links" id="navLinks">
+ 
+        <li><a href="reservation.html" class="active">Reservation</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="floating-elements" id="floatingElements"></div>
+    <div class="hero-content fade-in">
+      <h1>Reserve Your Experience</h1>
+      <p>Book your spot for an unforgettable evening at Baithak Lounge.</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>Book Now</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- Enhanced Reservation Section -->
+  <section class="reservation-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <h2>Secure Your Evening</h2>
+        <p>Reserve your spot at Baithak Lounge for an exquisite dining experience.</p>
+      </div>
+
+      <div class="reservation-grid">
+        <!-- Enhanced Reservation Form -->
+        <div class="reservation-form-wrapper slide-in-left">
+          <div class="reservation-form">
+            <div class="form-header">
+              <div class="icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <h3>Reserve Your Table</h3>
+              <p>Fill out the details to confirm your reservation</p>
+            </div>
+
+            <form id="reservation-form">
+              <div class="form-progress">
+                <div class="progress-step active"></div>
+                <div class="progress-step"></div>
+                <div class="progress-step"></div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name</label>
+                  <div class="input-wrapper">
+                    <input type="text" id="fullName" name="fullName" required placeholder="Your Full Name">
+                    <i class="input-icon fas fa-user"></i>
+                    <div class="form-validation"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email Address</label>
+                  <div class="input-wrapper">
+                    <input type="email" id="email" name="email" required placeholder="yourmail@example.com">
+                    <i class="input-icon fas fa-envelope"></i>
+                    <div class="form-validation"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Manager Number</label>
+                  <div class="input-wrapper">
+                    <input type="tel" id="phone" name="phone" required placeholder="+14379550803" value="+14379550803" readonly>
+                    <i class="input-icon fas fa-phone"></i>
+                    <div class="form-validation"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="date">Reservation Date</label>
+                  <div class="input-wrapper">
+                    <input type="date" id="date" name="date" required>
+                    <i class="input-icon fas fa-calendar"></i>
+                    <div class="form-validation"></div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="time">Preferred Time</label>
+                  <div class="input-wrapper">
+                    <input type="time" id="time" name="time" required>
+                    <i class="input-icon fas fa-clock"></i>
+                    <div class="form-validation"></div>
+                  </div>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="partySize">Party Size</label>
+                  <div class="party-size-container">
+                    <div class="party-size-label">Guests</div>
+                    <button type="button" class="party-size-btn" id="decreaseBtn">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <span class="party-size-display" id="partySizeDisplay">2</span>
+                    <button type="button" class="party-size-btn" id="increaseBtn">
+                      <i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                  <input type="hidden" id="partySize" name="partySize" value="2">
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="eventType">Event Type</label>
+                  <div class="input-wrapper">
+                    <select id="eventType" name="eventType" required>
+                      <option value="">Select Event Type</option>
+                      <option value="casual-dining">Casual Dining</option>
+                      <option value="date-night">Date Night</option>
+                      <option value="birthday">Birthday</option>
+                      <option value="anniversary">Anniversary</option>
+                      <option value="business">Business Meeting</option>
+                      <option value="family">Family Gathering</option>
+                      <option value="corporate">Corporate Event</option>
+                      <option value="other">Other</option>
+                    </select>
+                    <i class="input-icon fas fa-tag"></i>
+                    <div class="form-validation"></div>
+                  </div>
+                </div>
+
+                <div class="form-group full-width">
+                  <label for="specialRequests">Special Requests</label>
+                  <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Dietary restrictions, seating preferences, or celebration details..."></textarea>
+                  <div class="form-validation"></div>
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-calendar-check"></i>
+                    Reserve Now
+                  </button>
+                  <button type="button" class="clear-btn" id="clearBtn">
+                    <i class="fas fa-undo"></i>
+                    Clear Form
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Enhanced Reservation Information -->
+        <div class="reservation-info-wrapper slide-in-right">
+          <div class="info-card">
+            <div class="info-card-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3>Operating Hours</h3>
+            <p><strong>Mon - Sun</strong><br>5:00 PM - 2:00 AM</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h3>Group Bookings</h3>
+            <p><strong>Large Parties Welcome</strong></p>
+            <p>Private dining & custom packages</p>
+          </div>
+
+          <div class="info-card">
+            <div class="info-card-icon">
+              <i class="fas fa-star"></i>
+            </div>
+            <h3>What to Expect</h3>
+            <p><strong>Premium Experience</strong></p>
+            <p>Elegant atmosphere & service</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions Section -->
+      <div class="quick-actions fade-in">
+        <h3>Quick Links</h3>
+        <p>Explore more or get in touch</p>
+        <a href="about.html" class="quick-btn"><i class="fas fa-info-circle"></i> About Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Baithak Lounge</h4>
+        <p>Elegant dining and lounge experience. Join us for unforgettable moments.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Contact Us</h4>
+        <p><i class="fas fa-phone"></i> +1 (437) 955-0803</p>
+        <p><i class="fas fa-map-marker-alt"></i>1561 O'Connor Drive, East York, ON M4B 2V7, Canada</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Baithak Lounge. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Floating elements
+    function createFloatingElement() {
+      if (window.innerWidth > 768) {
+        const element = document.createElement('div');
+        element.classList.add('floating-element');
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (Math.random() * 8 + 12) + 's';
+        document.getElementById('floatingElements').appendChild(element);
+        
+        setTimeout(() => {
+          element.remove();
+        }, 20000);
+      }
+    }
+
+    if (window.innerWidth > 768) {
+      setInterval(createFloatingElement, 3000);
+      for (let i = 0; i < 3; i++) {
+        setTimeout(createFloatingElement, i * 400);
+      }
+    }
+
+    // Enhanced scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Form Progress Indicator
+    const progressSteps = document.querySelectorAll('.progress-step');
+    const formInputs = document.querySelectorAll('#reservation-form input:not([type="hidden"]), #reservation-form select, #reservation-form textarea');
+    
+    function updateProgress() {
+      const filledFields = Array.from(formInputs).filter(input => {
+        if (input.type === 'email') return input.value.includes('@');
+        if (input.type === 'date') return input.value !== '';
+        if (input.type === 'time') return input.value !== '';
+        return input.value.trim() !== '';
+      }).length;
+      
+      const progress = Math.min(Math.floor((filledFields / formInputs.length) * progressSteps.length), progressSteps.length);
+      
+      progressSteps.forEach((step, index) => {
+        step.classList.toggle('active', index < progress);
+      });
+    }
+
+    // Party size controls
+    const decreaseBtn = document.getElementById('decreaseBtn');
+    const increaseBtn = document.getElementById('increaseBtn');
+    const partySizeDisplay = document.getElementById('partySizeDisplay');
+    const partySizeInput = document.getElementById('partySize');
+    
+    let partySize = 2;
+
+    function updatePartySize() {
+      partySizeDisplay.style.transform = 'scale(1.15)';
+      partySizeDisplay.textContent = partySize;
+      partySizeInput.value = partySize;
+      
+      decreaseBtn.disabled = partySize <= 1;
+      increaseBtn.disabled = partySize >= 20;
+      
+      setTimeout(() => {
+        partySizeDisplay.style.transform = 'scale(1)';
+      }, 200);
+      
+      updateProgress();
+    }
+
+    decreaseBtn.addEventListener('click', () => {
+      if (partySize > 1) {
+        partySize--;
+        updatePartySize();
+      }
+    });
+
+    increaseBtn.addEventListener('click', () => {
+      if (partySize < 20) {
+        partySize++;
+        updatePartySize();
+      }
+    });
+
+    // Set minimum date to today
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Enhanced form validation
+    formInputs.forEach(input => {
+      input.addEventListener('input', function() {
+        updateProgress();
+        validateField(this);
+      });
+
+      input.addEventListener('focus', function() {
+        this.closest('.form-group').style.transform = 'scale(1.01)';
+        this.closest('.form-group').style.transition = 'transform 0.3s ease';
+      });
+
+      input.addEventListener('blur', function() {
+        this.closest('.form-group').style.transform = 'scale(1)';
+        validateField(this);
+      });
+    });
+
+    function validateField(field) {
+      const validation = field.closest('.input-wrapper')?.querySelector('.form-validation') || 
+                        field.closest('.form-group').querySelector('.form-validation');
+      
+      if (!validation) return;
+
+      let isValid = false;
+      let icon = '';
+
+      switch(field.type) {
+        case 'email':
+          isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+          icon = isValid ? 'fas fa-check' : field.value ? 'fas fa-times' : '';
+          break;
+        case 'tel':
+          isValid = field.value === '' || /^[\+]?[\d\s\-\(\)]{10,}$/.test(field.value);
+          icon = field.value && isValid ? 'fas fa-check' : field.value ? 'fas fa-times' : '';
+          break;
+        case 'date':
+          const selectedDate = new Date(field.value);
+          const todayDate = new Date();
+          todayDate.setHours(0, 0, 0, 0);
+          isValid = field.value && selectedDate >= todayDate;
+          icon = isValid ? 'fas fa-check' : field.value ? 'fas fa-times' : '';
+          break;
+        case 'time':
+          isValid = field.value !== '';
+          icon = isValid ? 'fas fa-check' : field.value ? 'fas fa-times' : '';
+          break;
+        default:
+          isValid = field.checkValidity() && field.value.trim() !== '';
+          icon = isValid ? 'fas fa-check' : field.value ? 'fas fa-times' : '';
+      }
+
+      validation.innerHTML = icon ? `<i class="${icon}"></i>` : '';
+      validation.className = `form-validation ${icon.includes('check') ? 'success' : icon.includes('times') ? 'error' : ''}`;
+      
+      field.style.borderColor = icon.includes('check') ? 'var(--success-color)' : 
+                               icon.includes('times') ? 'var(--error-color)' : '';
+    }
+
+    // Clear form functionality
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      document.getElementById('reservation-form').reset();
+      partySize = 2;
+      updatePartySize();
+      document.querySelectorAll('.form-validation').forEach(v => {
+        v.innerHTML = '';
+        v.className = 'form-validation';
+      });
+      document.querySelectorAll('input, select, textarea').forEach(input => {
+        input.style.borderColor = '';
+      });
+      updateProgress();
+    });
+
+    // Form submission
+    document.getElementById('reservation-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      console.log('Form submitted - checking mobile'); // Debug log
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const originalContent = submitBtn.innerHTML;
+      
+      submitBtn.innerHTML = '<i class="fas fa-spinner loading"></i> Processing...';
+      submitBtn.disabled = true;
+
+      const formData = new FormData(this);
+      const fullName = formData.get('fullName').trim();
+      const email = formData.get('email').trim();
+      const phone = formData.get('phone').trim();
+      const date = formData.get('date');
+      const time = formData.get('time');
+      const partySize = formData.get('partySize');
+      const eventType = formData.get('eventType');
+      const specialRequests = formData.get('specialRequests').trim() || 'No special requests';
+
+      const formattedDate = new Date(date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      const formattedTime = new Date(`1970-01-01T${time}`).toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+
+      const whatsappPhone = "14379550803"; // No + for wa.me
+      const message = encodeURIComponent(
+        `🌟 NEW RESERVATION - BAITHAK LOUNGE 🌟\n\n` +
+        `📋 DETAILS:\n` +
+        `━━━━━━━━━━━━━\n` +
+        `👤 Name: ${fullName}\n` +
+        `📧 Email: ${email}\n` +
+        `📅 Date: ${formattedDate}\n` +
+        `🕐 Time: ${formattedTime}\n` +
+        `👥 Party: ${partySize} guests\n` +
+        `🎉 Event: ${eventType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}\n\n` +
+        `📝 Requests: ${specialRequests}\n\n` +
+        `━━━━━━━━━━━━━\n` +
+        `📅 Sent: ${new Date().toLocaleString()}\n` +
+        `🌐 Source: baithaklounge.com\n\n` +
+        `✨ Please confirm this reservation.`
+      );
+
+      const whatsappUrl = `https://wa.me/${whatsappPhone}?text=${message}`;
+      
+      console.log('Opening URL:', whatsappUrl); // Debug: Check in console
+
+      // Detect mobile
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      setTimeout(() => {
+        try {
+          if (isMobile) {
+            // On mobile, direct navigate to force app open
+            window.location.href = whatsappUrl;
+          } else {
+            // On desktop, open in new tab
+            window.open(whatsappUrl, '_blank');
+          }
+          
+          // Show success message after redirect attempt
+          const form = document.getElementById('reservation-form');
+          form.innerHTML = `
+            <div class="success-animation">
+              <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h3 class="success-title">Request Sent!</h3>
+              <div class="success-message">
+                <p><strong>Thank you, ${fullName.split(' ')[0]}!</strong></p>
+                <p>Opening WhatsApp to connect you with our team. If it doesn't open, tap <a href="${whatsappUrl}" style="color: var(--primary-gold);">here</a>.</p>
+                <p><strong style="color: var(--primary-gold);">Summary:</strong></p>
+                <p>📅 ${formattedDate}<br>
+                🕐 ${formattedTime}<br>
+                👥 ${partySize} guests<br>
+                🎉 ${eventType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                <p><em>Confirmation within 15 minutes.</em></p>
+              </div>
+            </div>
+          `;
+        } catch (error) {
+          console.error('Error opening WhatsApp:', error);
+          alert(`Couldn't open WhatsApp. Please tap here: ${whatsappUrl}`);
+          
+          // Show success message with manual link
+          const form = document.getElementById('reservation-form');
+          form.innerHTML = `
+            <div class="success-animation">
+              <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <h3 class="success-title">Request Sent!</h3>
+              <div class="success-message">
+                <p><strong>Thank you, ${fullName.split(' ')[0]}!</strong></p>
+                <p>Opening WhatsApp to connect you with our team. If it doesn't open, tap <a href="${whatsappUrl}" style="color: var(--primary-gold);">here</a>.</p>
+                <p><strong style="color: var(--primary-gold);">Summary:</strong></p>
+                <p>📅 ${formattedDate}<br>
+                🕐 ${formattedTime}<br>
+                👥 ${partySize} guests<br>
+                🎉 ${eventType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                <p><em>Confirmation within 15 minutes.</em></p>
+              </div>
+            </div>
+          `;
+        }
+        
+        submitBtn.innerHTML = originalContent;
+        submitBtn.disabled = false;
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

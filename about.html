@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>About | Baithak Lounge</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary-gold: #D4AF37;
+      --soft-white: #f5f5f5;
+      --pure-white: #ffffff;
+      --light-gray: #e0e0e0;
+      --text-dark: #1a1a1a;
+      --text-muted: #666666;
+      --glass-bg: rgba(255, 255, 255, 0.8);
+      --shadow-gold: rgba(212, 175, 55, 0.3);
+      --gradient-primary: linear-gradient(135deg, var(--primary-gold), #f4e4a6);
+      --success-color: #27ae60;
+      --error-color: #e74c3c;
+      --warning-color: #f39c12;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, var(--soft-white) 0%, #fafafa 100%);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(25px);
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--shadow-gold);
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .navbar.scrolled {
+      backdrop-filter: blur(35px);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+      border-bottom: 1px solid var(--primary-gold);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.8rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2rem);
+      font-weight: 700;
+      color: var(--primary-gold);
+      text-decoration: none;
+      letter-spacing: 1.5px;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 15px var(--shadow-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      position: relative;
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--primary-gold);
+      transform: translateY(-2px);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover::after, .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-dark);
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 1001;
+      padding: 0.5rem;
+      border-radius: 8px;
+      position: relative;
+      width: 36px;
+      height: 36px;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text-dark);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .mobile-toggle span:nth-child(1) { top: 10px; }
+    .mobile-toggle span:nth-child(2) { top: 16px; }
+    .mobile-toggle span:nth-child(3) { top: 22px; }
+
+    .mobile-toggle.active span:nth-child(1) {
+      transform: translateX(-50%) translateY(6px) rotate(45deg);
+      background: var(--primary-gold);
+    }
+
+    .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+
+    .mobile-toggle.active span:nth-child(3) {
+      transform: translateX(-50%) translateY(-6px) rotate(-45deg);
+      background: var(--primary-gold);
+    }
+
+    .mobile-toggle:hover {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    /* Hero Section */
+    .hero {
+      height: clamp(45vh, 55vh, 65vh);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      margin-top: 60px;
+      overflow: hidden;
+    }
+
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(212, 175, 55, 0.3));
+      z-index: -1;
+    }
+
+    .floating-elements {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .floating-element {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: var(--primary-gold);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    .hero-content {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      padding: 2.5rem;
+      border-radius: 20px;
+      max-width: 900px;
+      margin: 0 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: heroFadeIn 1s ease forwards 0.5s;
+    }
+
+    @keyframes heroFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 7vw, 3.2rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(45deg, var(--primary-gold), #f4e4a6, #ffffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-content p {
+      font-size: clamp(0.95rem, 3.5vw, 1.15rem);
+      font-weight: 300;
+      letter-spacing: 1px;
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.8rem;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-8px); }
+      60% { transform: translateX(-50%) translateY(-4px); }
+    }
+
+    /* Main Content */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .about-section {
+      padding: 5rem 0;
+      background: var(--pure-white);
+      position: relative;
+    }
+
+    .about-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.02'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-header .badge {
+      display: inline-block;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header .badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.8s ease;
+    }
+
+    .section-header .badge:hover::before {
+      left: 100%;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 6vw, 2.5rem);
+      font-weight: 400;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: clamp(0.9rem, 4vw, 1rem);
+      color: var(--text-muted);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Story Section */
+    .story-card {
+      background: var(--pure-white);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .story-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--primary-gold);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .story-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .story-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .story-card-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.5rem;
+      color: white;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .story-card:hover .story-card-icon {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    }
+
+    .story-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.6rem, 4vw, 1.8rem);
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .story-card p {
+      color: var(--text-muted);
+      line-height: 1.7;
+      font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      padding: 4rem 0;
+      background: var(--pure-white);
+      text-align: center;
+    }
+
+    .timeline {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 0;
+      background: var(--gradient-primary);
+      border-radius: 2px;
+      animation: timelineGrow 1.5s ease forwards;
+    }
+
+    @keyframes timelineGrow {
+      to { height: 100%; }
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 3rem;
+      position: relative;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .timeline-item.visible {
+      animation: timelineItemFadeIn 0.8s ease forwards;
+    }
+
+    @keyframes timelineItemFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row-reverse;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+      text-align: left;
+    }
+
+    .timeline-content {
+      width: 45%;
+      background: var(--pure-white);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 15px;
+      padding: 2rem;
+      position: relative;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transform: scale(0.95);
+    }
+
+    .timeline-content.visible {
+      animation: timelineContentPop 0.6s ease forwards;
+    }
+
+    @keyframes timelineContentPop {
+      to { transform: scale(1); }
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px) scale(1.02);
+      border-color: var(--primary-gold);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      color: var(--primary-gold);
+      margin-bottom: 0.8rem;
+    }
+
+    .timeline-content p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .timeline-dot {
+      width: 18px;
+      height: 18px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      z-index: 1;
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.5);
+      animation: dotPulse 1.5s ease infinite;
+    }
+
+    .timeline-item.visible .timeline-dot {
+      animation: dotPop 0.5s ease forwards, dotPulse 1.5s ease infinite;
+    }
+
+    @keyframes dotPop {
+      to { transform: translateX(-50%) scale(1); }
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { box-shadow: 0 0 12px rgba(212, 175, 55, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      content: '';
+      position: absolute;
+      right: -30px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 10px solid transparent;
+      border-left-color: rgba(212, 175, 55, 0.2);
+      transition: border-left-color 0.4s ease;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 10px solid transparent;
+      border-right-color: rgba(212, 175, 55, 0.2);
+      transition: border-right-color 0.4s ease;
+    }
+
+    .timeline-content:hover::before {
+      border-left-color: var(--primary-gold);
+      border-right-color: var(--primary-gold);
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 4rem 0;
+      background: var(--pure-white);
+      text-align: center;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .team-card {
+      background: var(--pure-white);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .team-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .team-card img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.5rem;
+      border: 2px solid var(--shadow-gold);
+      transition: all 0.3s ease;
+    }
+
+    .team-card:hover img {
+      transform: scale(1.1);
+      border-color: var(--primary-gold);
+    }
+
+    .team-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 3.5vw, 1.5rem);
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .team-card p {
+      color: var(--text-muted);
+      font-size: clamp(0.8rem, 3vw, 0.85rem);
+    }
+
+    /* Social Media Section */
+    .social-section {
+      padding: 4rem 0;
+      background: var(--pure-white);
+      text-align: center;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .social-card {
+      background: var(--pure-white);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--text-dark);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .social-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .social-card.instagram:hover {
+      border-color: #E4405F;
+      box-shadow: 0 15px 30px rgba(228, 64, 95, 0.2);
+    }
+
+    .social-card.whatsapp:hover {
+      border-color: #25D366;
+      box-shadow: 0 15px 30px rgba(37, 211, 102, 0.2);
+    }
+
+    .social-card.tiktok:hover {
+      border-color: #000000;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .social-card.snapchat:hover {
+      border-color: #FFFC00;
+      box-shadow: 0 15px 30px rgba(255, 252, 0, 0.2);
+    }
+
+    .social-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 4px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+    }
+
+    .social-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .social-card.instagram:hover::before {
+      background: linear-gradient(135deg, #E4405F, #C13584);
+    }
+
+    .social-card.whatsapp:hover::before {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+
+    .social-card.tiktok:hover::before {
+      background: linear-gradient(135deg, #000000, #4A4A4A);
+    }
+
+    .social-card.snapchat:hover::before {
+      background: linear-gradient(135deg, #FFFC00, #FFD700);
+    }
+
+    .social-card-icon {
+      font-size: 3rem;
+      margin-bottom: 1.2rem;
+      transition: all 0.4s ease;
+    }
+
+    .social-card.instagram .social-card-icon { color: #E4405F; }
+    .social-card.whatsapp .social-card-icon { color: #25D366; }
+    .social-card.tiktok .social-card-icon { color: #000000; }
+    .social-card.snapchat .social-card-icon { color: #FFFC00; }
+
+    .social-card:hover .social-card-icon {
+      transform: scale(1.15);
+    }
+
+    .social-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .social-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .social-card .reel-link {
+      color: var(--primary-gold);
+      font-size: 0.85rem;
+      text-decoration: none;
+      margin-top: 0.8rem;
+      display: inline-block;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    .social-card:hover .reel-link {
+      color: var(--text-dark);
+      text-decoration: underline;
+    }
+
+    /* Call to Action */
+    .cta-section {
+      margin: 3rem auto;
+      padding: 3rem 2rem;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+      max-width: 900px;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(-45deg);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(-45deg); }
+      50% { transform: translateX(100%) translateY(100%) rotate(-45deg); }
+      100% { transform: translateX(200%) translateY(200%) rotate(-45deg); }
+    }
+
+    .cta-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2rem);
+      color: white;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      position: relative;
+      z-index: 2;
+    }
+
+    .cta-btn {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0.4rem;
+      position: relative;
+      z-index: 2;
+      touch-action: manipulation;
+    }
+
+    .cta-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+      color: var(--soft-white);
+      padding: 3rem 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23D4AF37' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-11.046-8.954-20-20-20v20h20z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 0 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--primary-gold);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-section p, .footer-section a {
+      color: var(--soft-white);
+      text-decoration: none;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary-gold);
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      padding: 1.5rem 0;
+      border-top: 2px solid rgba(212, 175, 55, 0.3);
+      background: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-bottom p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: clamp(0.85rem, 3.5vw, 0.9rem);
+      letter-spacing: 1px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero {
+        height: 50vh;
+      }
+
+      .hero video {
+        object-fit: cover;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .timeline::before {
+        left: 30px;
+      }
+
+      .timeline-item {
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .timeline-item:nth-child(odd), .timeline-item:nth-child(even) {
+        flex-direction: column;
+        text-align: left;
+      }
+
+      .timeline-content {
+        width: 100%;
+        margin-left: 50px;
+      }
+
+      .timeline-item:nth-child(odd) .timeline-content::before,
+      .timeline-item:nth-child(even) .timeline-content::before {
+        left: -30px;
+        border-right-color: rgba(212, 175, 55, 0.2);
+        border-left-color: transparent;
+      }
+
+      .timeline-content:hover::before {
+        border-right-color: var(--primary-gold);
+      }
+
+      .timeline-dot {
+        left: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0.8rem 1rem;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 100%;
+        max-width: 280px;
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(30px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        border-left: 2px solid var(--primary-gold);
+        z-index: 1000;
+        gap: 2.5rem;
+        box-shadow: -10px 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .nav-links a {
+        font-size: 1.4rem;
+        padding: 1rem 0;
+        text-align: center;
+        width: 100%;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .nav-links.active a {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .nav-links a:nth-child(1) { transition-delay: 0.1s; }
+      .nav-links a:nth-child(2) { transition-delay: 0.2s; }
+      .nav-links a:nth-child(3) { transition-delay: 0.3s; }
+      .nav-links a:nth-child(4) { transition-delay: 0.4s; }
+      .nav-links a:nth-child(5) { transition-delay: 0.5s; }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .hero {
+        height: 40vh;
+        margin-top: 60px;
+      }
+
+      .hero-content {
+        padding: 1.5rem;
+      }
+
+      .hero-content h1 {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+      }
+
+      .hero-content p {
+        font-size: clamp(0.85rem, 3vw, 1rem);
+      }
+
+      .about-section {
+        padding: 3rem 0;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.8rem, 5vw, 2.2rem);
+      }
+
+      .story-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .team-card {
+        padding: 1.5rem;
+      }
+
+      .team-card img {
+        width: 80px;
+        height: 80px;
+      }
+
+      .social-section {
+        padding: 3rem 0;
+      }
+
+      .cta-section {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        max-width: 100%;
+      }
+
+      .nav-links a {
+        font-size: 1.2rem;
+      }
+
+      .hero {
+        height: 35vh;
+      }
+
+      .hero-content {
+        padding: 1rem;
+      }
+
+      .hero-content h1 {
+        font-size: clamp(1.6rem, 5vw, 2rem);
+      }
+
+      .hero-content p {
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+      }
+
+      .story-card {
+        padding: 1.5rem;
+        border-radius: 15px;
+      }
+
+      .section-header .badge {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.75rem;
+      }
+
+      .team-card {
+        padding: 1.2rem;
+      }
+
+      .team-card img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .social-card {
+        padding: 1.5rem;
+      }
+
+      .cta-btn {
+        padding: 0.8rem 1.2rem;
+        font-size: 0.85rem;
+      }
+
+      .scroll-indicator {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">BAITHAK</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+       
+        <li><a href="reservation.html">Reservation</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <video autoplay loop muted playsinline>
+  <source src="vid1.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<audio autoplay loop>
+  <source src="song.mp3" type="audio/mpeg">
+
+  Your browser does not support the audio element.
+</audio>
+    <div class="floating-elements" id="floatingElements"></div>
+    <div class="hero-content fade-in">
+      <h1>Discover Baithak Lounge</h1>
+      <p>A sanctuary of culture and unforgettable flavors.</p>
+    </div>
+    <div class="scroll-indicator">
+      <span>Our Story</span>
+      <i class="fas fa-chevron-down"></i>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="badge">Our Heritage</div>
+        <h2>About Baithak Lounge</h2>
+        <p>Baithak Lounge is a celebration of culture, community, and culinary artistry, crafted to create lasting memories in a luxurious setting.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="story-card slide-in-left">
+          <div class="story-card-icon">
+            <i class="fas fa-book-open"></i>
+          </div>
+          <h3>Our Journey</h3>
+          <p>Established in 2023, Baithak Lounge was inspired by the traditional "baithak"—a gathering space for connection and celebration. Located in East York, we blend cultural heritage with modern sophistication to offer a unique sheesha and dining experience.</p>
+        </div>
+
+        <div class="story-card slide-in-right">
+          <div class="story-card-icon">
+            <i class="fas fa-utensils"></i>
+          </div>
+          <h3>Culinary Artistry</h3>
+          <p>Our menu weaves global flavors with premium ingredients, honoring tradition while embracing innovation. From exotic sheesha blends to curated dishes, every creation is designed to delight.</p>
+        </div>
+
+        <div class="story-card slide-in-left">
+          <div class="story-card-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3>Our Promise</h3>
+          <p>We are committed to crafting unforgettable experiences through warm hospitality, sustainable practices, and meticulous attention to detail, ensuring every visit feels extraordinary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="badge">Our Milestones</div>
+        <h2>Our Story in Time</h2>
+        <p>Trace the journey of Baithak Lounge through key moments that define our legacy.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content slide-in-left">
+            <h3>2023: The Beginning</h3>
+            <p>Baithak Lounge opens its doors in East York, introducing a unique blend of sheesha culture and modern dining.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content slide-in-right">
+            <h3>Community Hub</h3>
+            <p>Quickly becoming a local favorite, Baithak hosts cultural events and gatherings, fostering community connections.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content slide-in-left">
+            <h3>Signature Flavors</h3>
+            <p>Launch of our exclusive in-house sheesha blends, like Dubai Special and Zafraan, setting new standards in flavor innovation.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content slide-in-right">
+            <h3>Looking Ahead</h3>
+            <p>Expanding our vision to bring Baithak’s unique experience to new locations while staying true to our roots.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <!-- <section class="team-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="badge">Our People</div>
+        <h2>Meet Our Team</h2>
+        <p>Our passionate team brings the Baithak experience to life with dedication and creativity.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card fade-in">
+          <img src="https://via.placeholder.com/90?text=Ali+Khan" alt="Ali Khan" />
+          <h3>Ali Khan</h3>
+          <p>Founder</p>
+        </div>
+
+        <div class="team-card fade-in">
+          <img src="https://via.placeholder.com/90?text=Bharat" alt="Bharat" />
+          <h3>Bharat Sharma</h3>
+          <p>Manager</p>
+        </div>
+
+        <div class="team-card fade-in">
+          <img src="https://via.placeholder.com/90?text=Sara" alt="Sara" />
+          <h3>Sara Ahmed</h3>
+          <p>Mixologist</p>
+        </div>
+
+        <div class="team-card fade-in">
+          <img src="https://via.placeholder.com/90?text=Rohan" alt="Rohan" />
+          <h3>Rohan Patel</h3>
+          <p>Mixologist</p>
+        </div>
+      </div>
+
+      <div class="cta-section fade-in">
+        <h3>Join Our Journey</h3>
+        <p>Experience the elegance of Baithak Lounge. Reserve your table or connect with us today.</p>
+        <a href="reservation.html" class="cta-btn">
+          <i class="fas fa-calendar-check"></i>
+          Reserve Now
+        </a>
+        <a href="contact.html" class="cta-btn">
+          <i class="fas fa-envelope"></i>
+          Contact Us
+        </a>
+      </div>
+    </div>
+  </section> -->
+
+  <!-- Social Media Section -->
+  <section class="social-section">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="badge">Connect With Us</div>
+        <h2>Follow Our Journey</h2>
+        <p>Stay updated with Baithak Lounge for exclusive offers, behind-the-scenes content, and more.</p>
+      </div>
+
+      <div class="social-grid">
+        <a href="https://www.instagram.com/_baithaklounge?igsh=MWk2NXFueDN4cnljMA%3D%3D&utm_source=qr" class="social-card instagram fade-in" target="_blank">
+          <div class="social-card-icon">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <h3>Instagram</h3>
+          <p>_baithaklounge</p>
+          <span class="reel-link">View Reels</span>
+        </a>
+
+        <a href="https://wa.me/14379550803" class="social-card whatsapp fade-in" target="_blank">
+          <div class="social-card-icon">
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3>WhatsApp</h3>
+          <p>+1 (437) 955-0803</p>
+          <span class="reel-link">Chat Now</span>
+        </a>
+
+        <a href="https://www.tiktok.com/@baithaklounge?_t=ZS-8zrbhPvWTvW&_r=1" class="social-card tiktok fade-in" target="_blank">
+          <div class="social-card-icon">
+            <i class="fab fa-tiktok"></i>
+          </div>
+          <h3>TikTok</h3>
+          <p>@baithaklounge</p>
+          <span class="reel-link">Watch Videos</span>
+        </a>
+
+        <a href="https://snapchat.com/t/Ep9QgE6q" class="social-card snapchat fade-in" target="_blank">
+          <div class="social-card-icon">
+            <i class="fab fa-snapchat"></i>
+          </div>
+          <h3>Snapchat</h3>
+          <p>baithaklounge</p>
+          <span class="reel-link">See Stories</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>BAITHAK</h3>
+          <p>Experience the ultimate sheesha lounge with exotic flavors and a cozy ambiance.</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <p><a href="index.html">Home</a></p>
+          <p><a href="about.html">About</a></p>
+       
+          <p><a href="reservation.html">Reservation</a></p>
+          <p><a href="contact.html">Contact</a></p>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>Phone: <a href="tel:+14379550803">+1 (437) 955-0803</a></p>
+          <p>Address: 1561 O'Connor Dr, East York, ON M4B 2V7, Canada</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Baithak Lounge. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Navigation Toggle
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    const navbar = document.getElementById('navbar');
+
+    mobileToggle.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      mobileToggle.classList.toggle('active');
+      document.body.style.overflow = isActive ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        mobileToggle.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      });
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > 60) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Floating elements
+    function createFloatingElement() {
+      if (window.innerWidth > 768) {
+        const element = document.createElement('div');
+        element.classList.add('floating-element');
+        element.style.left = Math.random() * 100 + '%';
+        element.style.animationDelay = Math.random() * 15 + 's';
+        element.style.animationDuration = (Math.random() * 8 + 12) + 's';
+        document.getElementById('floatingElements').appendChild(element);
+        
+        setTimeout(() => {
+          element.remove();
+        }, 20000);
+      }
+    }
+
+    if (window.innerWidth > 768) {
+      setInterval(createFloatingElement, 2500);
+      for (let i = 0; i < 4; i++) {
+        setTimeout(createFloatingElement, i * 400);
+      }
+    }
+
+    // Enhanced scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -30px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          if (entry.target.classList.contains('fade-in')) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          } else if (entry.target.classList.contains('slide-in-left')) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateX(0)';
+          } else if (entry.target.classList.contains('slide-in-right')) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateX(0)';
+          }
+        } else {
+          if (entry.target.classList.contains('fade-in')) {
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateY(20px)';
+          } else if (entry.target.classList.contains('slide-in-left')) {
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateX(-20px)';
+          } else if (entry.target.classList.contains('slide-in-right')) {
+            entry.target.style.opacity = '0';
+            entry.target.style.transform = 'translateX(20px)';
+          }
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .timeline-item, .timeline-content').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scrolling for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add loading state to external links
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+      link.addEventListener('click', function() {
+        this.style.opacity = '0.7';
+        setTimeout(() => {
+          this.style.opacity = '1';
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>
