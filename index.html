@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content="Welcome to Baithak Lounge, East York's premier sheesha and dining lounge in Toronto. Explore our exquisite menu, premium sheesha, vibrant ambiance, private events, and exceptional services. Open daily from 5 PM to 2 AM. Reserve now for an unforgettable experience!">
-  <title>Baithak Lounge Canada , Toronto | Luxury Sheesha & Dining in East York, Toronto</title>
+  <title>Baithak Lounge Canada, Toronto | Luxury Sheesha & Dining in East York, Toronto</title>
   <link rel="icon" type="image/png" href="favicon.ico">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -287,7 +287,7 @@
       animation: fadeInUp 1s ease-out 0.6s both;
     }
 
-    .btn-primary, .btn-secondary {
+    .btn-primary {
       padding: 1.3rem 3rem;
       text-decoration: none;
       font-weight: 600;
@@ -301,22 +301,12 @@
       display: inline-flex;
       align-items: center;
       gap: 0.8rem;
-    }
-
-    .btn-primary {
       background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
       color: var(--text-dark);
       box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
     }
 
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: 2px solid var(--primary-gold);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-primary::before, .btn-secondary::before {
+    .btn-primary::before {
       content: '';
       position: absolute;
       top: 0;
@@ -327,18 +317,11 @@
       transition: left 0.6s ease;
     }
 
-    .btn-primary:hover::before, .btn-secondary:hover::before {
+    .btn-primary:hover::before {
       left: 100%;
     }
 
     .btn-primary:hover {
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
-    }
-
-    .btn-secondary:hover {
-      background: var(--primary-gold);
-      color: var(--text-dark);
       transform: translateY(-5px) scale(1.05);
       box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
     }
@@ -801,7 +784,7 @@
       right: 2rem;
       width: 400px;
       max-height: 600px;
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--pure-white);
       backdrop-filter: blur(15px);
       border-radius: 20px;
       border: 2px solid var(--primary-gold);
@@ -810,54 +793,98 @@
       flex-direction: column;
       z-index: 1000;
       overflow: hidden;
+      transition: all 0.3s ease-in-out;
     }
 
     .chatbot-container.active {
       display: flex;
+      animation: slideIn 0.3s ease-in-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .chatbot-header {
       background: linear-gradient(45deg, var(--primary-gold), var(--secondary-gold));
-      padding: 1rem;
+      padding: 1.2rem;
       text-align: center;
       color: var(--text-dark);
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 500;
       position: relative;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
     }
 
     .chatbot-header .close-chat {
       position: absolute;
-      right: 1rem;
+      right: 1.2rem;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       color: var(--text-dark);
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       cursor: pointer;
       transition: all 0.3s ease;
     }
 
     .chatbot-header .close-chat:hover {
       color: var(--pure-white);
+      transform: translateY(-50%) scale(1.1);
     }
 
     .chatbot-body {
       flex: 1;
-      padding: 1rem;
+      padding: 1.5rem;
       overflow-y: auto;
       background: var(--glass-bg);
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary-gold) var(--light-gray);
+    }
+
+    .chatbot-body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chatbot-body::-webkit-scrollbar-track {
+      background: var(--light-gray);
+      border-radius: 10px;
+    }
+
+    .chatbot-body::-webkit-scrollbar-thumb {
+      background: var(--primary-gold);
+      border-radius: 10px;
     }
 
     .chat-message {
-      margin-bottom: 1rem;
-      padding: 0.8rem 1.2rem;
+      margin-bottom: 1.2rem;
+      padding: 1rem 1.5rem;
       border-radius: 15px;
-      max-width: 80%;
+      max-width: 85%;
       font-size: 0.95rem;
-      line-height: 1.5;
+      line-height: 1.6;
+      position: relative;
+      animation: messageAppear 0.3s ease-in;
+    }
+
+    @keyframes messageAppear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .chat-message.bot {
@@ -874,51 +901,32 @@
       border-bottom-left-radius: 5px;
     }
 
-    .chatbot-topics {
-      padding: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      border-bottom: 1px solid var(--light-gray);
-    }
-
-    .topic-button {
-      padding: 0.6rem 1.2rem;
-      border: none;
-      background: var(--light-gray);
-      color: var(--text-dark);
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      flex: 1 1 auto;
-      text-align: center;
-    }
-
-    .topic-button:hover {
-      background: var(--primary-gold);
-      color: var(--text-dark);
-    }
-
     .chatbot-input {
       display: flex;
-      padding: 1rem;
+      padding: 1.2rem;
       border-top: 1px solid var(--light-gray);
+      background: var(--pure-white);
     }
 
     .chatbot-input input {
       flex: 1;
-      padding: 0.8rem;
+      padding: 0.9rem 1.2rem;
       border: 1px solid var(--light-gray);
       border-radius: 25px 0 0 25px;
       font-size: 0.95rem;
       outline: none;
       background: var(--pure-white);
       color: var(--text-dark);
+      transition: border-color 0.3s ease;
+    }
+
+    .chatbot-input input:focus {
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 8px var(--shadow-gold);
     }
 
     .chatbot-input button {
-      padding: 0.8rem 1.2rem;
+      padding: 0.9rem 1.5rem;
       border: none;
       background: var(--primary-gold);
       color: var(--text-dark);
@@ -930,6 +938,7 @@
 
     .chatbot-input button:hover {
       background: var(--secondary-gold);
+      transform: scale(1.05);
     }
 
     /* Animations */
@@ -1002,7 +1011,7 @@
         gap: 1.5rem;
       }
 
-      .btn-primary, .btn-secondary {
+      .btn-primary {
         padding: 1.1rem 2.5rem;
         font-size: 1rem;
         width: 280px;
@@ -1066,24 +1075,22 @@
 
       .chatbot-header {
         font-size: 1.3rem;
+        padding: 1rem;
       }
 
       .chat-message {
         font-size: 0.9rem;
-      }
-
-      .topic-button {
-        font-size: 0.85rem;
-        padding: 0.5rem 1rem;
+        padding: 0.8rem 1.2rem;
       }
 
       .chatbot-input input {
         font-size: 0.9rem;
+        padding: 0.8rem 1rem;
       }
 
       .chatbot-input button {
         font-size: 0.9rem;
-        padding: 0.8rem 1rem;
+        padding: 0.8rem 1.2rem;
       }
     }
 
@@ -1138,6 +1145,7 @@
 
       .chatbot-header {
         font-size: 1.2rem;
+        padding: 0.8rem;
       }
 
       .chat-message {
@@ -1145,18 +1153,14 @@
         padding: 0.6rem 1rem;
       }
 
-      .topic-button {
-        font-size: 0.8rem;
-        padding: 0.4rem 0.8rem;
-      }
-
       .chatbot-input input {
         font-size: 0.85rem;
+        padding: 0.7rem 0.9rem;
       }
 
       .chatbot-input button {
         font-size: 0.85rem;
-        padding: 0.8rem 1rem;
+        padding: 0.7rem 1rem;
       }
     }
   </style>
@@ -1262,14 +1266,14 @@
         <p>Explore captivating moments, premium sheesha sessions, dining experiences, and ambiance from Baithak Lounge in East York, Toronto.</p>
       </div>
       <div class="collage-grid fade-in">
-        <img src="imgcoll1.png" alt="Baithak Lounge  Premium Sheesha Experience in Canada, Toronto">
-        <img src="imgcoll2.png" alt="Baithak Lounge  Exquisite Dining at East York Lounge">
-        <img src="imgcoll3.png" alt="Baithak Lounge  Private Events Venue in Toronto">
-        <img src="imgcoll4.png" alt="Baithak Lounge  Luxury Ambiance at Baithak Lounge">
-        <img src="imgcoll5.png" alt="Baithak Lounge  House Specials and Cocktails">
-        <img src="imgcoll6.png" alt="Baithak Lounge  Sheesha Flavors at Baithak Lounge">
-        <img src="imgcoll7.png" alt="Baithak Lounge  Cultural Events in East York">
-        <img src="imgcoll8.png" alt="Baithak Lounge  Vibrant Nights at Toronto Lounge">
+        <img src="imgcoll1.png" alt="Baithak Lounge Premium Sheesha Experience in Canada, Toronto">
+        <img src="imgcoll2.png" alt="Baithak Lounge Exquisite Dining at East York Lounge">
+        <img src="imgcoll3.png" alt="Baithak Lounge Private Events Venue in Toronto">
+        <img src="imgcoll4.png" alt="Baithak Lounge Luxury Ambiance at Baithak Lounge">
+        <img src="imgcoll5.png" alt="Baithak Lounge House Specials and Cocktails">
+        <img src="imgcoll6.png" alt="Baithak Lounge Sheesha Flavors at Baithak Lounge">
+        <img src="imgcoll7.png" alt="Baithak Lounge Cultural Events in East York">
+        <img src="imgcoll8.png" alt="Baithak Lounge Vibrant Nights at Toronto Lounge">
       </div>
     </div>
   </section>
@@ -1309,7 +1313,6 @@
         <p>Find Baithak Lounge in the heart of East York, Toronto, where luxury sheesha, dining, and convenience meet.</p>
       </div>
       <div class="map-container fade-in">
-        
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.110673837318!2d-79.31632768450266!3d43.72588297911807!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cd97787602a7%3A0xb4892cbeb9dacf4e!2sBaithak%20Lounge!5e0!3m2!1sen!2sca!4v1697051234567!5m2!1sen!2sca"
           allowfullscreen=""
@@ -1357,18 +1360,7 @@
       <button class="close-chat" id="closeChat"><i class="fas fa-times"></i></button>
     </div>
     <div class="chatbot-body" id="chatbotBody">
-      <div class="chat-message bot">Welcome to Baithak Lounge! Choose a topic below or type your question about our sheesha lounge in East York, Toronto.</div>
-    </div>
-    <div class="chatbot-topics" id="chatbotTopics">
-      <button class="topic-button" data-topic="about">About Baithak Lounge</button>
-      <button class="topic-button" data-topic="services">Services at Baithak Lounge</button>
-      <button class="topic-button" data-topic="location">Baithak Lounge Location</button>
-      <button class="topic-button" data-topic="reservation">Reservation</button>
-      <button class="topic-button" data-topic="social">Social Media</button>
-      <button class="topic-button" data-topic="hours">Operating Hours</button>
-      <button class="topic-button" data-topic="events">Private Events</button>
-      <button class="topic-button" data-topic="sheesha">Premium Sheesha</button>
-      <button class="topic-button" data-topic="contact">Contact Baithak Lounge</button>
+      <div class="chat-message bot">Welcome to Baithak Lounge! Type your question about our sheesha lounge in East York, Toronto, and I'll assist you promptly.</div>
     </div>
     <div class="chatbot-input">
       <input type="text" id="chatInput" placeholder="Type your question..." />
@@ -1453,7 +1445,7 @@
       document.body.style.opacity = '1';
     });
 
-    document.querySelectorAll('.btn-primary, .btn-secondary, .reserve-link').forEach(button => {
+    document.querySelectorAll('.btn-primary, .reserve-link').forEach(button => {
       button.addEventListener('mouseenter', function() {
         this.style.transform = 'translateY(-5px) scale(1.05)';
       });
@@ -1505,7 +1497,6 @@
     const chatInput = document.getElementById('chatInput');
     const sendMessage = document.getElementById('sendMessage');
     const chatbotBody = document.getElementById('chatbotBody');
-    const chatbotTopics = document.getElementById('chatbotTopics');
 
     chatbotButton.addEventListener('click', () => {
       chatbotContainer.classList.toggle('active');
@@ -1524,6 +1515,16 @@
         topic: 'about',
         question: 'What is Baithak Lounge?',
         response: 'Baithak Lounge is a premier luxury sheesha and dining lounge in East York, Toronto. We offer exquisite cuisine, premium sheesha, curated house specials, private event spaces, a sophisticated ambiance, and exceptional service. Visit the "About" page for more details about Baithak Lounge.'
+      },
+      {
+        topic: 'hello',
+        question: 'Hello',
+        response: 'Hello! Its wonderful to hear from you! How can I make your visit to Baithak Lounge in East York, Toronto, even more special?'
+      },
+      {
+        topic: 'bye',
+        question: 'Bye',
+        response: 'Goodbye! We can not wait to welcome you back to Baithak Lounge for another unforgettable sheesha and dining experience!'
       },
       {
         topic: 'services',
@@ -1554,6 +1555,16 @@
         topic: 'events',
         question: 'Does Baithak Lounge host private events?',
         response: 'Yes, Baithak Lounge offers elegant spaces for private events such as birthdays, anniversaries, and corporate gatherings. Visit the "Reservation" page for customized event packages or contact us via WhatsApp at +1 (437) 955-0803.'
+      },
+      {
+        topic: 'help',
+        question: 'Help',
+        response: 'We are thrilled to assist you! What can we do to enhance your experience at Baithak Lounge? Feel free to ask about our services, reservations, or anything else!'
+      },
+      {
+        topic: 'how are you',
+        question: 'How are you',
+        response: 'I am doing great, thanks for asking! I am here to help make your time at Baithak Lounge amazing. Whats on your mind?'
       },
       {
         topic: 'sheesha',
@@ -1593,22 +1604,8 @@
       }
       
       // Fallback response
-      return 'I’m not sure how to answer that. Try selecting a topic below or ask about Baithak Lounge services, reservations, location, hours, or social media. You can also contact us via WhatsApp at +1 (437) 955-0803 for more help!';
+      return 'I’m not sure how to answer that. Try asking about Baithak Lounge services, reservations, location, hours, or social media. You can also contact us via WhatsApp at +1 (437) 955-0803 for more help!';
     }
-
-    // Handle topic button clicks
-    document.querySelectorAll('.topic-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const topic = button.getAttribute('data-topic');
-        const faqItem = faq.find(item => item.topic === topic);
-        if (faqItem) {
-          addMessage(faqItem.question, 'user');
-          setTimeout(() => {
-            addMessage(faqItem.response, 'bot');
-          }, 500);
-        }
-      });
-    });
 
     sendMessage.addEventListener('click', () => {
       const userMessage = chatInput.value.trim();
